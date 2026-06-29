@@ -1,0 +1,343 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    padding: 5.5rem 1rem 2rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #222;
+    border-bottom: 3px solid #007acc;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #222;
+}
+
+article {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+article .card-corpo:first-child {
+    padding: 1.5rem 2rem;
+}
+
+.card-listagem {
+    padding: 0;
+}
+
+.card-imagem {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-imagem-detalhe {
+    height: 300px;
+}
+
+.card-imagem-placeholder {
+    background: linear-gradient(135deg, #007acc, #005c99);
+}
+
+.card-corpo {
+    padding: 1.5rem 2rem;
+}
+
+.subtitulo {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+article h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+}
+
+article h2 a {
+    color: #007acc;
+    text-decoration: none;
+}
+
+article h2 a:hover {
+    text-decoration: underline;
+}
+
+article h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    border-bottom: none;
+    display: block;
+}
+
+article p {
+    margin-bottom: 0.5rem;
+}
+
+article p strong {
+    color: #555;
+}
+
+article div {
+    margin-top: 1rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+article div img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+article div blockquote {
+    border-left: 4px solid #007acc;
+    padding-left: 1rem;
+    color: #555;
+    margin: 1rem 0;
+    font-style: italic;
+}
+
+article div ul,
+article div ol {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+article div ul {
+    list-style: disc;
+}
+
+article div ol {
+    list-style: decimal;
+}
+
+article div ul li,
+article div ol li {
+    margin-bottom: 0.25rem;
+}
+
+article div pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+article div code {
+    background: #f0f0f0;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+article div pre code {
+    background: none;
+    padding: 0;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 1.5rem 0;
+}
+
+.empty {
+    text-align: center;
+    color: #888;
+    padding: 3rem 0;
+    font-style: italic;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: #007acc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    z-index: 100;
+    padding: 1rem 0;
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.banner {
+    background: linear-gradient(135deg, #007acc, #005c99);
+    color: #fff;
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
+}
+
+.banner h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    border-bottom: none;
+    display: block;
+}
+
+.banner p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.destaques {
+    margin-bottom: 2.5rem;
+}
+
+.destaques-grid {
+    display: flex;
+    gap: 1rem;
+}
+
+.card-destaque {
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 1.25rem;
+    transition: box-shadow 0.2s;
+}
+
+.card-destaque:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.card-destaque h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-destaque h3 a {
+    color: #007acc;
+    text-decoration: none;
+}
+
+.card-destaque h3 a:hover {
+    text-decoration: underline;
+}
+
+.card-destaque .visualizacoes {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 0.25rem;
+}
+
+.card-destaque .meta {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.listagem {
+    margin-bottom: 2rem;
+}
+
+.tag-visualizacoes {
+    display: inline-block;
+    background: #e8f4fd;
+    color: #007acc;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #007acc;
+    outline-offset: 2px;
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: #888;
+    font-size: 0.85rem;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 2rem;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 4.5rem 0.75rem 1rem;
+    }
+
+    article .card-corpo:first-child,
+    .card-corpo {
+        padding: 1rem;
+    }
+
+    .card-imagem {
+        height: 150px;
+    }
+
+    .card-imagem-detalhe {
+        height: 200px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    article h2 {
+        font-size: 1.2rem;
+    }
+
+    article h1 {
+        font-size: 1.4rem;
+    }
+}
