@@ -56,6 +56,15 @@ Acesse:
 - http://localhost:8000 — página inicial do blog
 - http://localhost:8000/{ADMIN_URL}/ — painel administrativo
 
+## Perfis de Usuário
+
+| Perfil | Acesso | Como criar |
+|---|---|---|
+| **Administrador** | Acesso total ao admin | `python manage.py createsuperuser` |
+| **Escritor** | Admin apenas para gerenciar publicações (somente as próprias) | Criar usuário pelo admin: **Staff** + grupo **Escritores** |
+
+O grupo **Escritores** é criado automaticamente pela migration com permissões de adicionar, editar, excluir e visualizar publicações.
+
 ## Funcionalidades
 
 - Publicações com título, slug, subtítulo, conteúdo (Markdown), imagem e autor
@@ -66,3 +75,4 @@ Acesse:
 - Design responsivo sem frameworks CSS
 - Testes automatizados (model + views)
 - Configuração por variáveis de ambiente (python-decouple)
+- Dois perfis de acesso: administrador e escritor
