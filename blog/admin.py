@@ -1,19 +1,18 @@
 from django.contrib import admin
-
 from .models import Publicacao
 
 
 @admin.register(Publicacao)
 class PublicacaoAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'slug', 'subtitulo', 'autor', 'data_criacao')
-    search_fields = ('titulo', 'conteudo')
-    prepopulated_fields = {'slug': ('titulo',)}
+    list_display = ("titulo", "slug", "subtitulo", "autor", "data_criacao")
+    search_fields = ("titulo", "conteudo")
+    prepopulated_fields = {"slug": ("titulo",)}
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
+        consulta = super().get_queryset(request)
         if request.user.is_superuser:
-            return qs
-        return qs.filter(autor=request.user)
+            return consulta
+        return consulta.filter(autor=request.user)
 
     def save_model(self, request, obj, form, change):
         if not change:
@@ -22,6 +21,6 @@ class PublicacaoAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        if not request.user.is_superuser and 'autor' in form.base_fields:
-            del form.base_fields['autor']
+        if not request.user.is_superuser and "autor" in form.base_fields:
+            del form.base_fields["autor"]
         return form

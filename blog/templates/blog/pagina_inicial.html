@@ -1,69 +1,49 @@
-{% load static %}
-{% load markdown_extras %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
-    <link rel="stylesheet" href="{% static 'blog/estilo.css' %}">
-</head>
-<body>
-    <header class="header">
-        <div class="container">
-            <a href="{% url 'pagina_inicial' %}">Blog</a>
-        </div>
-    </header>
-    <div class="container">
-        <main>
-            <section class="banner">
-                <h1>Bem-vindo ao Blog</h1>
-                <p>Compartilhando conhecimento e ideias.</p>
-            </section>
+{% extends 'blog/base.html' %}
+{% load extras_markdown %}
 
-            <section class="destaques">
-                <h2>Destaques</h2>
-                <div class="destaques-grid">
-                    {% for publicacao in publicacoes_destaque %}
-                        <article class="card-destaque">
-                            <h3><a href="{% url 'detalhe_publicacao' slug=publicacao.slug %}">{{ publicacao.titulo }}</a></h3>
-                            <p class="visualizacoes">{{ publicacao.visualizacoes }} visualizaç{{ publicacao.visualizacoes|pluralize:"ão,ões" }}</p>
-                            <p class="meta">{{ publicacao.autor }} &middot; {{ publicacao.data_criacao|date:"d/m/Y" }}</p>
-                        </article>
-                    {% empty %}
-                        <p class="empty">Nenhuma publicação em destaque.</p>
-                    {% endfor %}
+{% block titulo %}Blog{% endblock %}
+
+{% block conteudo %}
+    <section class="banner-destaque">
+        <h1>Bem-vindo ao Blog</h1>
+        <p>Compartilhando conhecimento e ideias.</p>
+    </section>
+
+    <section class="destaques">
+        <h2>Destaques</h2>
+        <div class="grade-destaques">
+            {% for publicacao in publicacoes_destaque %}
+                <article class="cartao-destaque">
+                    <h3><a href="{% url 'detalhe_publicacao' slug=publicacao.slug %}">{{ publicacao.titulo }}</a></h3>
+                    <p class="visualizacoes">{{ publicacao.visualizacoes }} visualizaç{{ publicacao.visualizacoes|pluralize:"ão,ões" }}</p>
+                    <p class="metadados">{{ publicacao.autor }} &middot; {{ publicacao.data_criacao|date:"d/m/Y" }}</p>
+                </article>
+            {% empty %}
+                <p class="vazio">Nenhuma publicação em destaque.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="listagem">
+        <h2>Todas as Publicações</h2>
+        {% for publicacao in publicacoes %}
+            <article class="cartao-listagem">
+                {% if publicacao.imagem %}
+                    <div class="cartao-imagem" style="background-image: url('{{ publicacao.imagem.url }}')"></div>
+                {% else %}
+                    <div class="cartao-imagem cartao-imagem-placeholder"></div>
+                {% endif %}
+                <div class="cartao-corpo">
+                    <h2><a href="{% url 'detalhe_publicacao' slug=publicacao.slug %}">{{ publicacao.titulo }}</a></h2>
+                    {% if publicacao.subtitulo %}
+                        <p class="subtitulo">{{ publicacao.subtitulo }}</p>
+                    {% endif %}
+                    <p><strong>Autor:</strong> {{ publicacao.autor }} &middot; {{ publicacao.data_criacao|date:"d/m/Y" }}</p>
+                    <div>{{ publicacao.conteudo|markdown|truncatechars_html:200 }}</div>
                 </div>
-            </section>
-
-            <section class="listagem">
-                <h2>Todas as Publicações</h2>
-                {% for publicacao in publicacoes %}
-                    <article class="card-listagem">
-                        {% if publicacao.imagem %}
-                            <div class="card-imagem" style="background-image: url('{{ publicacao.imagem.url }}')"></div>
-                        {% else %}
-                            <div class="card-imagem card-imagem-placeholder"></div>
-                        {% endif %}
-                        <div class="card-corpo">
-                            <h2><a href="{% url 'detalhe_publicacao' slug=publicacao.slug %}">{{ publicacao.titulo }}</a></h2>
-                            {% if publicacao.subtitulo %}
-                                <p class="subtitulo">{{ publicacao.subtitulo }}</p>
-                            {% endif %}
-                            <p><strong>Autor:</strong> {{ publicacao.autor }} &middot; {{ publicacao.data_criacao|date:"d/m/Y" }}</p>
-                            <div>{{ publicacao.conteudo|markdown|truncatechars_html:200 }}</div>
-                        </div>
-                    </article>
-                {% empty %}
-                    <p class="empty">Nenhuma publicação encontrada.</p>
-                {% endfor %}
-            </section>
-        </main>
-    </div>
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; {% now "Y" %} Blog. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-</body>
-</html>
+            </article>
+        {% empty %}
+            <p class="vazio">Nenhuma publicação encontrada.</p>
+        {% endfor %}
+    </section>
+{% endblock %}

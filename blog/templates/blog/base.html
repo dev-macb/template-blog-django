@@ -1,0 +1,29 @@
+{% load static %}
+{% load extras_markdown %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'blog/estilo.css' %}">
+    {% block cabecalho_extra %}{% endblock %}
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="recipiente">
+            <a href="{% url 'pagina_inicial' %}">Blog</a>
+        </div>
+    </header>
+    <div class="recipiente">
+        <main>
+            {% block conteudo %}{% endblock %}
+        </main>
+    </div>
+    <footer class="rodape">
+        <div class="recipiente">
+            <p>&copy; {% now "Y" %} Blog. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

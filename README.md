@@ -1,4 +1,4 @@
-# template-blog-django
+# modelo-blog-django
 
 Um simples template de blog construído com Django.
 
@@ -41,7 +41,7 @@ cp .env .env.local
 - `SESSION_COOKIE_HTTPONLY` e `CSRF_COOKIE_HTTPONLY` bloqueiam acesso JS aos cookies
 - `SECURE_REFERRER_POLICY=same-origin` restringe o header Referer
 - `SECURE_PROXY_SSL_HEADER` configurado para reverse proxy (nginx, ELB, etc.)
-- Markdown sanitizado com `bleach` (XSS prevention)
+- Conteúdo HTML sem sanitização (liberado para layouts complexos)
 - `DATA_UPLOAD_MAX_MEMORY_SIZE` limitado a 5MB
 
 ## Execução
@@ -71,7 +71,7 @@ O grupo **Escritores** é criado automaticamente pela migration com permissões 
 - Contador de visualizações atômico (sem race condition)
 - Seção de destaques (posts mais acessados)
 - Preview de 200 caracteres na listagem
-- Markdown com sanitização (bleach)
+- Conteúdo em HTML (sem conversão Markdown)
 - Design responsivo sem frameworks CSS
 - Testes automatizados (model + views)
 - Configuração por variáveis de ambiente (python-decouple)

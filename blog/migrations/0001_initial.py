@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,22 +14,32 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Publicacao',
+            name="Publicacao",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('titulo', models.CharField(max_length=200)),
-                ('slug', models.SlugField(unique=True)),
-                ('subtitulo', models.CharField(blank=True, max_length=300)),
-                ('conteudo', models.TextField()),
-                ('imagem', models.ImageField(blank=True, null=True, upload_to='publicacoes/')),
-                ('data_criacao', models.DateTimeField(auto_now_add=True)),
-                ('visualizacoes', models.IntegerField(db_index=True, default=0)),
-                ('autor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                    ),
+                ),
+                ("titulo", models.CharField(max_length=200)),
+                ("slug", models.SlugField(unique=True)),
+                ("subtitulo", models.CharField(blank=True, max_length=300)),
+                ("conteudo", models.TextField()),
+                ("imagem", models.ImageField(blank=True, null=True, upload_to="publicacoes/")),
+                ("data_criacao", models.DateTimeField(auto_now_add=True)),
+                ("visualizacoes", models.IntegerField(db_index=True, default=0)),
+                (
+                    "autor",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Publicação',
-                'verbose_name_plural': 'Publicações',
-                'ordering': ['-data_criacao'],
+                "verbose_name": "Publicação",
+                "verbose_name_plural": "Publicações",
+                "ordering": ["-data_criacao"],
             },
         ),
     ]

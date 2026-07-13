@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "modelo-blog-django"
+version = "0.1.0"
+description = "Um simples template de blog construído com Django"
+requires-python = ">=3.14"
+dependencies = [
+    "Django>=6.0",
+    "python-decouple",
+    "pillow",
+    "dj-database-url",
+    "bleach",
+    "django-csp",
+    "django-ratelimit",
+]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["blog/tests"]
+
+[tool.coverage.run]
+source = ["blog"]
+omit = ["*/migrations/*", "*/tests/*"]

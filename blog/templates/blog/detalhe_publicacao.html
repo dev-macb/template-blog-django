@@ -1,40 +1,20 @@
-{% load static %}
-{% load markdown_extras %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ publicacao.titulo }}</title>
-    <link rel="stylesheet" href="{% static 'blog/estilo.css' %}">
-</head>
-<body>
-    <header class="header">
-        <div class="container">
-            <a href="{% url 'pagina_inicial' %}">Blog</a>
+{% extends 'blog/base.html' %}
+{% load extras_markdown %}
+
+{% block titulo %}{{ publicacao.titulo }}{% endblock %}
+
+{% block conteudo %}
+    <article>
+        <div class="cartao-imagem cartao-imagem-detalhe{% if not publicacao.imagem %} cartao-imagem-placeholder{% endif %}"{% if publicacao.imagem %} style="background-image: url('{{ publicacao.imagem.url }}')"{% endif %}></div>
+        <div class="cartao-corpo">
+            <h1>{{ publicacao.titulo }}</h1>
+            {% if publicacao.subtitulo %}
+                <p class="subtitulo">{{ publicacao.subtitulo }}</p>
+            {% endif %}
+            <span class="etiqueta-visualizacoes">{{ publicacao.visualizacoes }} visualizaç{{ publicacao.visualizacoes|pluralize:"ão,ões" }}</span>
+            <p><strong>Autor:</strong> {{ publicacao.autor }} &middot; {{ publicacao.data_criacao|date:"d/m/Y" }} às {{ publicacao.data_criacao|date:"H:i" }}</p>
+            <div>{{ publicacao.conteudo|markdown }}</div>
         </div>
-    </header>
-    <div class="container">
-        <main>
-            <article>
-                <div class="card-imagem card-imagem-detalhe{% if not publicacao.imagem %} card-imagem-placeholder{% endif %}"{% if publicacao.imagem %} style="background-image: url('{{ publicacao.imagem.url }}')"{% endif %}></div>
-                <div class="card-corpo">
-                    <h1>{{ publicacao.titulo }}</h1>
-                    {% if publicacao.subtitulo %}
-                        <p class="subtitulo">{{ publicacao.subtitulo }}</p>
-                    {% endif %}
-                    <span class="tag-visualizacoes">{{ publicacao.visualizacoes }} visualizaç{{ publicacao.visualizacoes|pluralize:"ão,ões" }}</span>
-                    <p><strong>Autor:</strong> {{ publicacao.autor }} &middot; {{ publicacao.data_criacao|date:"d/m/Y" }} às {{ publicacao.data_criacao|date:"H:i" }}</p>
-                    <div>{{ publicacao.conteudo|markdown }}</div>
-                </div>
-            </article>
-            <a href="{% url 'pagina_inicial' %}" class="back-link">&laquo; Voltar para a página inicial</a>
-        </main>
-    </div>
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; {% now "Y" %} Blog. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-</body>
-</html>
+    </article>
+    <a href="{% url 'pagina_inicial' %}" class="link-voltar">&laquo; Voltar para a página inicial</a>
+{% endblock %}
