@@ -1,10 +1,21 @@
 from django.contrib import admin
-from .models import Publicacao
+from .models import Categoria, Publicacao
+
+
+@admin.register(Categoria)
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ("nome", "slug")
+    prepopulated_fields = {"slug": ("nome",)}
+    search_fields = ("nome",)
 
 
 @admin.register(Publicacao)
 class PublicacaoAdmin(admin.ModelAdmin):
-    list_display = ("titulo", "slug", "subtitulo", "autor", "data_criacao")
+    list_display = (
+        "titulo", "slug", "subtitulo", "autor", "categoria",
+        "data_criacao", "visualizacoes",
+    )
+    list_filter = ("data_criacao", "categoria")
     search_fields = ("titulo", "conteudo")
     prepopulated_fields = {"slug": ("titulo",)}
 

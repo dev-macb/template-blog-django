@@ -1,5 +1,7 @@
 {% extends 'blog/base.html' %}
 {% load extras_markdown %}
+{% load paginacao_extras %}
+{% load static %}
 
 {% block titulo %}Blog{% endblock %}
 
@@ -25,7 +27,32 @@
     </section>
 
     <section class="listagem">
-        <h2>Todas as Publicações</h2>
+        <div class="cabecalho-listagem">
+            <h2>Todas as Publicações</h2>
+            <div class="filtros-listagem">
+                <form class="busca-titulo" method="get" action="{% url 'pagina_inicial' %}" id="form-filtros">
+                    <input type="text" name="titulo" placeholder="Buscar por título..." value="{{ termo_busca }}">
+                    <button type="submit">Buscar</button>
+
+                    {% if categorias %}
+                    <div class="dropdown-categorias" id="dropdown-categorias">
+                        <button type="button" class="botao-dropdown" id="botao-categorias">
+                            Categorias{% if categorias_selecionadas %} ({{ categorias_selecionadas|length }}){% endif %} &#9662;
+                        </button>
+                        <div class="painel-categorias" id="painel-categorias">
+                            {% for cat in categorias %}
+                            <label class="item-categoria">
+                                <input type="checkbox" name="categorias" value="{{ cat.slug }}"
+                                       {% if cat.slug in categorias_selecionadas %}checked{% endif %}>
+                                {{ cat.nome }}
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
         {% for publicacao in publicacoes %}
             <article class="cartao-listagem">
                 {% if publicacao.imagem %}
@@ -38,6 +65,9 @@
                     {% if publicacao.subtitulo %}
                         <p class="subtitulo">{{ publicacao.subtitulo }}</p>
                     {% endif %}
+                    {% if publicacao.categoria %}
+                        <span class="etiqueta-categoria">{{ publicacao.categoria.nome }}</span>
+                    {% endif %}
                     <p><strong>Autor:</strong> {{ publicacao.autor }} &middot; {{ publicacao.data_criacao|date:"d/m/Y" }}</p>
                     <div>{{ publicacao.conteudo|markdown|truncatechars_html:200 }}</div>
                 </div>
@@ -46,4 +76,30 @@
             <p class="vazio">Nenhuma publicação encontrada.</p>
         {% endfor %}
     </section>
+
+    {% if publicacoes.has_other_pages %}
+    <nav class="paginacao" aria-label="Paginação">
+        {% if publicacoes.has_previous %}
+            <a href="?{% parametros_url pagina=publicacoes.previous_page_number %}" class="botao-paginacao">
+                &laquo; Anterior
+            </a>
+        {% endif %}
+
+        {% for num in publicacoes.paginator.page_range %}
+            {% if publicacoes.number == num %}
+                <span class="pagina-atual" aria-current="page">{{ num }}</span>
+            {% elif num > publicacoes.number|add:'-3' and num < publicacoes.number|add:'3' %}
+                <a href="?{% parametros_url pagina=num %}" class="botao-paginacao">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if publicacoes.has_next %}
+            <a href="?{% parametros_url pagina=publicacoes.next_page_number %}" class="botao-paginacao">
+                Próximo &raquo;
+            </a>
+        {% endif %}
+    </nav>
+    {% endif %}
+
+    <script src="{% static 'blog/dropdown.js' %}"></script>
 {% endblock %}
